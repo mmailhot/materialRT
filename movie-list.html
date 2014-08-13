@@ -1,0 +1,48 @@
+<link rel="import" href="components/polymer/polymer.html">
+<link rel="import" href="movie-card.html">
+<link rel="import" href="list-service.html">
+<link rel="import" href="components/paper-ripple/paper-ripple.html">
+
+<polymer-element name="movie-list" attributes="show title list">
+  <template>
+    <style>
+    :host {
+      display: block;
+      min-width:300px;
+      width: 100%;
+      max-width: 400px;
+    }
+    movie-card {
+      margin-bottom: 16px;
+    }
+    .title{
+      margin: 0;
+      font-size: 1.4rem;
+      font-weight: 300;
+      width:100%;
+      margin-bottom: 10px;
+    }
+    </style>
+    <list-service movies="{{movies}}" list="{{list}}"></list-service>
+
+    <div layout vertical center>
+      <h3 class="title">{{title}}</h3>
+      <template repeat="{{movie in movies}}">
+        <movie-card >
+          <img src="{{movie.posters.detailed}}">
+          <h2 class="title">{{movie.title}}</h2>
+          <h2 class="score">{{movie.ratings.critics_score}}</h2>
+          <p class="details">{{movie.mpaa_rating}} | {{movie.runtime}}MIN</p>
+          <p>{{movie.synopsis}}</p>
+        </movie-card>
+      </template>
+    </div>
+    <!-- add markup here -->
+    
+  </template>
+
+  <script>
+  Polymer({});
+  </script>
+
+</polymer-element>

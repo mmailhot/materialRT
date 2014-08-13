@@ -1,0 +1,117 @@
+<link rel="import" href="components/polymer/polymer.html">
+<link rel="import" href="components/paper-shadow/paper-shadow.html">
+<link rel="import" href="components/paper-ripple/paper-ripple.html">
+<link rel="import" href="components/core-animated-pages/core-animated-pages.html">
+
+
+<polymer-element name="movie-card">
+  <template>
+    <style>
+    :host {
+      display: block;
+      position: relative;
+      background-color: white;
+      padding: 8px;
+      width: 100%;
+      font-size: 1.2rem;
+      font-weight: 300;
+    }
+    .card-header {
+      margin-bottom: 0px;
+    }
+    polyfill-next-selector { content: '.card-header h2'; }
+    .card-header ::content h2 {
+      margin: 0;
+      font-size: 1.4rem;
+      font-weight: 300;
+    }
+
+    polyfill-next-selector { content: '.card-header h2.title'; }
+    .card-header ::content h2.title {
+      display:-webkit-flex;
+      display:flex;
+      flex:1;
+
+    }
+
+    polyfill-next-selector { content: '.card-header h2.score'; }
+    .card-header ::content h2.score {
+      margin:10px;
+    }
+    polyfill-next-selector { content: '.card-header img'; }
+    .card-header ::content img {
+      width: 70px;
+      height:70px;
+      border-radius: 50%;
+      margin: 10px;
+    }
+
+    polyfill-next-selector { content: '.large-card img'; }
+    .large-card ::content img {
+      width: 70px;
+      height:70px;
+      border-radius: 50%;
+      margin: 10px;
+    }
+
+    .card-content{
+      padding:10px;
+    }
+
+    core-animated-pages{
+      height:400px;
+    }
+    </style>
+
+    <paper-shadow z="1"></paper-shadow>
+    <core-animated-pages transitions="hero-transition cross-fade" id="pages" onclick="({{toggle}})(event,this)" selected="1">
+      <section id="page2" >
+        <div class="large-card" layout horizontal>
+          <div>
+            <content select="img"></content>
+            </div>
+          <div class="card-content" flex>
+            <div class="card-header" layout horizontal center>
+              <content select="h2.title" flex></content>
+              <content select="h2.score"></content>
+            </div>
+            <content></content>
+          </div>
+        </div>
+      </section>
+      <section id="page1">
+          <div class="card-header" layout horizontal center>
+          <content select="img"></content>
+          <content select="h2.title" flex></content>
+          <content select="h2.score"></content>
+          <paper-ripple fit></paper-ripple>
+        </div>
+      </section>
+      
+    </core-animated-pages>
+    
+
+    
+  </template>
+  <script>
+  Polymer('movie-card',
+    {
+      ready: function(){
+        this.$.page2.addEventListener('on-click', function(e){
+          Console.log("TEST");
+          toggle();
+        });
+        this.$.page1.addEventListener('on-click', function(e){
+          Console.log("TEST");
+          toggle();
+        });
+
+      },
+      toggle: function (e,elem){
+        console.log(elem.selected);
+        elem.selected = elem.selected == 1 ? 0 : 1;
+      },
+
+    });
+  </script>
+</polymer-element>
